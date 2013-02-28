@@ -1,11 +1,20 @@
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="image.picker.js"></script>
 <script type="text/javascript">
     var getPicture = function() {
-        ImagePicker.getPicture(function(dataurl) {
-            $("#picture").attr("src", dataurl);
+        ImagePicker.pick(function() {
+            ImagePicker.setMaxEdge(1024);
+            ImagePicker.render();
+            $(document.body).append(ImagePicker.canvas());
         });
     };
 </script>
 <button onclick="getPicture()">Get Picture</button>
-<img id="picture" src="">
+<button onclick="ImagePicker.rotateCW()">Rotate CW</button>
+<button onclick="ImagePicker.rotateCCW()">Rotate CCW</button>
+<hr>

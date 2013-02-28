@@ -6,7 +6,11 @@ A project to capture, modify and upload images using web technologies
 USAGE:
 
 ```javascript
-ImagePicker.getPicture(function(dataurl) {
-    // do something with BASE64 encoded data url
-});
+    var getPicture = function() {
+        ImagePicker.pick(function() {
+            ImagePicker.setMaxEdge(1024);
+            ImagePicker.render();
+            $(document.body).append(ImagePicker.canvas());
+        });
+    };
 ```
