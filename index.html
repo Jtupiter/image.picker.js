@@ -4,6 +4,7 @@
     }
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="canvas-to-blob.js"></script>
 <script type="text/javascript" src="image.picker.js"></script>
 <script type="text/javascript">
     var getPicture = function() {
@@ -13,8 +14,28 @@
             $(document.body).append(ImagePicker.canvas());
         });
     };
+
+    var upload = function() {
+        ImagePicker.canvas().toBlob(function(blob) {
+            var data = new FormData();
+            data.append("upload", blob, "test.jpg");
+            $.ajax('upload.php', {
+                type:"POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function(response) {
+                    alert("Success!");
+                },
+                error: function(xhr, status, error) {
+                    alert(status + " " + error);
+                }
+            });
+        }, "images/jpeg", 0.6);
+    };
 </script>
 <button onclick="getPicture()">Get Picture</button>
 <button onclick="ImagePicker.rotateCW()">Rotate CW</button>
 <button onclick="ImagePicker.rotateCCW()">Rotate CCW</button>
+<button onclick="upload()">Upload</button>
 <hr>
