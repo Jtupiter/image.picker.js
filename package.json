@@ -1,0 +1,21 @@
+{
+  "name": "image.picker.js",
+  "version": "0.0.0",
+  "description": "image.picker.js ===============",
+  "main": "GruntFile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jblashill/image.picker.js.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "217e1d0bb8741963d50b60c62214ca28b06ab0f7",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}

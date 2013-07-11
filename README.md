@@ -39,5 +39,9 @@ ImagePicker.canvas().toBlob(function(blob) {
 
 Added canvas-to-blob.js polyfill for browsers that don't support: https://github.com/blueimp/JavaScript-Canvas-to-Blob
 
-###TESTED ON:
-Firefox, Safari, Chrome
+###Browser Support
+
+Tested on Firefox, Safari, Chrome.
+
+Internet Explorer 9 is not supported but will not produce an error. Instead, ImagePicker.browserSupported === false in IE9.
+
