@@ -103,9 +103,13 @@ var ImagePicker = (function () {
     }
   };
 
+  var browserSupported = function() {
+    return typeof(FileReader) !== "undefined";
+  };
+
   var initialized = false;
   var initialize = function () {
-    if (initialized) {
+    if (initialized || !browserSupported()) {
       return;
     }
     initialized = true;
@@ -128,9 +132,7 @@ var ImagePicker = (function () {
     canvas    :function () {
       return imageCanvas;
     },
-    browserSupported: function() {
-      return typeof(FileReader) !== "undefined";
-    },
+    browserSupported: browserSupported,
     render    :render,
     skew      :skew,
     setMaxEdge:setMaxEdge,
