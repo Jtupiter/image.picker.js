@@ -1,7 +1,6 @@
 (function(a){"use strict";var b=a.HTMLCanvasElement&&a.HTMLCanvasElement.prototype,c=a.Blob&&function(){try{return Boolean(new Blob)}catch(a){return!1}}(),d=c&&a.Uint8Array&&function(){try{return(new Blob([new Uint8Array(100)])).size===100}catch(a){return!1}}(),e=a.BlobBuilder||a.WebKitBlobBuilder||a.MozBlobBuilder||a.MSBlobBuilder,f=(c||e)&&a.atob&&a.ArrayBuffer&&a.Uint8Array&&function(a){var b,f,g,h,i,j;a.split(",")[0].indexOf("base64")>=0?b=atob(a.split(",")[1]):b=decodeURIComponent(a.split(",")[1]),f=new ArrayBuffer(b.length),g=new Uint8Array(f);for(h=0;h<b.length;h+=1)g[h]=b.charCodeAt(h);return i=a.split(",")[0].split(":")[1].split(";")[0],c?new Blob([d?g:f],{type:i}):(j=new e,j.append(f),j.getBlob(i))};a.HTMLCanvasElement&&!b.toBlob&&(b.mozGetAsFile?b.toBlob=function(a,c,d){d&&b.toDataURL&&f?a(f(this.toDataURL(c,d))):a(this.mozGetAsFile("blob",c))}:b.toDataURL&&f&&(b.toBlob=function(a,b,c){a(f(this.toDataURL(b,c)))})),typeof define=="function"&&define.amd?define(function(){return f}):a.dataURLtoBlob=f})(this);
 
 var ImagePicker = (function () {
-  var reader = new FileReader();
   var fileInputElement;
   var successCallback;
   var img;
@@ -94,13 +93,22 @@ var ImagePicker = (function () {
   };
 
   var readDataURL = function () {
-    reader.onloadend = function (event) {
-      drawImage(event.target.result);
-    };
-    reader.readAsDataURL(fileInputElement.files[0]);
+    if (typeof(FileReader) !== "undefined") {
+      var reader = new FileReader();
+
+      reader.onloadend = function (event) {
+        drawImage(event.target.result);
+      };
+      reader.readAsDataURL(fileInputElement.files[0]);
+    }
   };
 
-  $(document).ready(function () {
+  var initialized = false;
+  var initialize = function () {
+    if (initialized) {
+      return;
+    }
+    initialized = true;
     fileInputElement = document.createElement("input");
     fileInputElement.type = "file";
     fileInputElement.accept = "image/*";
@@ -111,7 +119,7 @@ var ImagePicker = (function () {
     document.body.appendChild(fileInputElement);
     imageCanvas = document.createElement('canvas');
     context = imageCanvas.getContext("2d");
-  });
+  };
   return {
     pick      :function (success) {
       successCallback = success;
@@ -119,6 +127,9 @@ var ImagePicker = (function () {
     },
     canvas    :function () {
       return imageCanvas;
+    },
+    browserSupported: function() {
+      return typeof(FileReader) !== "undefined";
     },
     render    :render,
     skew      :skew,
@@ -133,6 +144,7 @@ var ImagePicker = (function () {
         rotation = 3;
       }
       render();
-    }
+    },
+    initialize: initialize
   };
 })();
