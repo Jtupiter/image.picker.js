@@ -41,7 +41,7 @@ Added canvas-to-blob.js polyfill for browsers that don't support: https://github
 
 ###Browser Support
 
-Tested on Firefox, Safari, Chrome.
+Tested on recent Firefox, Safari, Chrome and Internet Explorer 10.
 
-Internet Explorer 9 is not supported but will not produce an error. Instead, ImagePicker.browserSupported === false in IE9.
+Internet Explorer 9 is not supported but will not produce an error. Instead, ImagePicker.browserSupported() === false in IE9.
 
