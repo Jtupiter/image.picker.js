@@ -100,6 +100,7 @@ var ImagePicker = (function () {
         drawImage(event.target.result);
       };
       reader.readAsDataURL(fileInputElement.files[0]);
+      $(fileInputElement).val("");
     }
   };
 
